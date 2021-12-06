@@ -45,8 +45,12 @@ public class TimeToSunsetService {
         String formattedNow = now.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
         data.setNow(formattedNow);
         long timeToSunset = Duration.between(now, sunsetTime).toMillis();
-        String formattedTimeToSunset = DurationFormatUtils.formatDuration(timeToSunset, "HH:mm:ss", true);
-        data.setTimeToSunset(formattedTimeToSunset);
+        if (timeToSunset <= 0){
+            data.setTimeToSunset("00:00:00");
+        }else{
+            String formattedTimeToSunset = DurationFormatUtils.formatDuration(timeToSunset, "HH:mm:ss", true);
+            data.setTimeToSunset(formattedTimeToSunset);
+        }
         return data;
     }
 }
